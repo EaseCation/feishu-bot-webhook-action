@@ -43984,8 +43984,19 @@ async function PostGithubEvent() {
             break;
         case 'pull_request': {
             const pull_request = github_1.context.payload.pull_request;
-            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
-            detailurl = pull_request?.html_url || '';
+            switch (status) {
+                case 'review_requested': {
+                    const requested_reviewer = github_1.context.payload.requested_reviewer;
+                    etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\nRequested Reviewer: ${requested_reviewer?.name}\n\n`;
+                    detailurl = pull_request?.html_url || '';
+                    break;
+                }
+                default: {
+                    etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
+                    detailurl = pull_request?.html_url || '';
+                    break;
+                }
+            }
             break;
         }
         case 'pull_request_comment': {
@@ -43998,19 +44009,8 @@ async function PostGithubEvent() {
         case 'pull_request_review': {
             const pull_request = github_1.context.payload.pull_request;
             const review = github_1.context.payload.review;
-            switch (status) {
-                case 'review_requested': {
-                    const requested_reviewer = github_1.context.payload.requested_reviewer;
-                    etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${review?.body}\n\nRequested Reviewer: ${requested_reviewer?.name}\n\n`;
-                    detailurl = pull_request?.html_url || '';
-                    break;
-                }
-                default: {
-                    etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${review?.body}\n\n`;
-                    detailurl = pull_request?.html_url || '';
-                    break;
-                }
-            }
+            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${review?.body}\n\n`;
+            detailurl = pull_request?.html_url || '';
             break;
         }
         case 'pull_request_review_comment': {
