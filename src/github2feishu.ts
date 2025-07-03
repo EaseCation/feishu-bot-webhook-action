@@ -107,7 +107,7 @@ export async function PostGithubEvent(): Promise<number | undefined> {
       switch (status) {
         case 'review_requested': {
           const requested_reviewer = context.payload.requested_reviewer
-          etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\nRequested Reviewer: ${requested_reviewer?.name}\n\n`
+          etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\nRequested Reviewer: ${requested_reviewer?.login}\n\n`
           detailurl = pull_request?.html_url || ''
           break
         }
