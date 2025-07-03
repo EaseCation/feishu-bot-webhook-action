@@ -101,16 +101,36 @@ export async function PostGithubEvent(): Promise<number | undefined> {
       break
     case 'public':
       break
-    case 'pull_request':
+    case 'pull_request': {
+      const pull_request = context.payload.pull_request
+      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      detailurl = pull_request?.html_url || ''
       break
-    case 'pull_request_comment':
+    }
+    case 'pull_request_comment': {
+      const pull_request = context.payload.pull_request
+      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      detailurl = pull_request?.html_url || ''
       break
-    case 'pull_request_review':
+    }
+    case 'pull_request_review': {
+      const pull_request = context.payload.pull_request
+      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      detailurl = pull_request?.html_url || ''
       break
-    case 'pull_request_review_comment':
+    }
+    case 'pull_request_review_comment': {
+      const pull_request = context.payload.pull_request
+      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      detailurl = pull_request?.html_url || ''
       break
-    case 'pull_request_target':
+    }
+    case 'pull_request_target': {
+      const pull_request = context.payload.pull_request
+      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      detailurl = pull_request?.html_url || ''
       break
+    }
     case 'push': {
       const head_commit = context.payload['head_commit']
       console.log(context.payload['ref'])
