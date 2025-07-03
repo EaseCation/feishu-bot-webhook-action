@@ -43954,14 +43954,15 @@ async function PostGithubEvent() {
         case 'gollum':
             break;
         case 'issue_comment': {
+            const issue = github_1.context.payload.issue;
             const comment = github_1.context.payload.comment;
-            etitle = `[No.${github_1.context.payload.issue?.number} ${github_1.context.payload.issue?.title}](${github_1.context.payload.issue?.html_url})\n\n${comment?.body}\n\n`;
+            etitle = `[#${issue?.number} ${issue?.title}](${issue?.html_url})\n\n${comment?.body}\n\n`;
             detailurl = comment?.html_url || '';
             break;
         }
         case 'issue': {
             const issue = github_1.context.payload.issue;
-            etitle = `[No.${issue?.number} ${issue?.title}](${issue?.html_url})\n\n${issue?.body}\n\n`;
+            etitle = `[#${issue?.number} ${issue?.title}](${issue?.html_url})\n\n${issue?.body}\n\n`;
             detailurl = issue?.html_url || '';
             break;
         }
@@ -43983,31 +43984,34 @@ async function PostGithubEvent() {
             break;
         case 'pull_request': {
             const pull_request = github_1.context.payload.pull_request;
-            etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
+            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
             detailurl = pull_request?.html_url || '';
             break;
         }
         case 'pull_request_comment': {
             const pull_request = github_1.context.payload.pull_request;
-            etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
-            detailurl = pull_request?.html_url || '';
+            const comment = github_1.context.payload.comment;
+            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${comment?.body}\n\n`;
+            detailurl = comment?.html_url || '';
             break;
         }
         case 'pull_request_review': {
             const pull_request = github_1.context.payload.pull_request;
-            etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
+            const review = github_1.context.payload.review;
+            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${review?.body}\n\n`;
             detailurl = pull_request?.html_url || '';
             break;
         }
         case 'pull_request_review_comment': {
             const pull_request = github_1.context.payload.pull_request;
-            etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
+            const comment = github_1.context.payload.comment;
+            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${comment?.body}\n\n`;
             detailurl = pull_request?.html_url || '';
             break;
         }
         case 'pull_request_target': {
             const pull_request = github_1.context.payload.pull_request;
-            etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
+            etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`;
             detailurl = pull_request?.html_url || '';
             break;
         }

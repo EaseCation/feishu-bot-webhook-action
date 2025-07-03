@@ -74,14 +74,15 @@ export async function PostGithubEvent(): Promise<number | undefined> {
     case 'gollum':
       break
     case 'issue_comment': {
+      const issue = context.payload.issue
       const comment = context.payload.comment
-      etitle = `[No.${context.payload.issue?.number} ${context.payload.issue?.title}](${context.payload.issue?.html_url})\n\n${comment?.body}\n\n`
+      etitle = `[#${issue?.number} ${issue?.title}](${issue?.html_url})\n\n${comment?.body}\n\n`
       detailurl = comment?.html_url || ''
       break
     }
     case 'issue': {
       const issue = context.payload.issue
-      etitle = `[No.${issue?.number} ${issue?.title}](${issue?.html_url})\n\n${issue?.body}\n\n`
+      etitle = `[#${issue?.number} ${issue?.title}](${issue?.html_url})\n\n${issue?.body}\n\n`
       detailurl = issue?.html_url || ''
       break
     }
@@ -103,31 +104,34 @@ export async function PostGithubEvent(): Promise<number | undefined> {
       break
     case 'pull_request': {
       const pull_request = context.payload.pull_request
-      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
       detailurl = pull_request?.html_url || ''
       break
     }
     case 'pull_request_comment': {
       const pull_request = context.payload.pull_request
-      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
-      detailurl = pull_request?.html_url || ''
+      const comment = context.payload.comment
+      etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${comment?.body}\n\n`
+      detailurl = comment?.html_url || ''
       break
     }
     case 'pull_request_review': {
       const pull_request = context.payload.pull_request
-      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      const review = context.payload.review
+      etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${review?.body}\n\n`
       detailurl = pull_request?.html_url || ''
       break
     }
     case 'pull_request_review_comment': {
       const pull_request = context.payload.pull_request
-      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      const comment = context.payload.comment
+      etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${comment?.body}\n\n`
       detailurl = pull_request?.html_url || ''
       break
     }
     case 'pull_request_target': {
       const pull_request = context.payload.pull_request
-      etitle = `[No.${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
+      etitle = `[#${pull_request?.number} ${pull_request?.title}](${pull_request?.html_url})\n\n${pull_request?.body}\n\n`
       detailurl = pull_request?.html_url || ''
       break
     }
